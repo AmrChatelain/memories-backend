@@ -1,8 +1,10 @@
+require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const logger = require("morgan");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+
 
 const jwt = require("jsonwebtoken");
 
@@ -21,11 +23,15 @@ const User = require("./models/User.model");
 const Memory = require("./models/Memory.model");
 const Tag = require("./models/Tag.model");
 
+// Import Routes
+const authRoutes = require("./routes/auth.routes");
+const memoryRoutes = require("./routes/memory.routes");
+const tagRoutes = require("./routes/tag.routes");
 
 // ROUTES
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "testing" });
-});
+app.use("/auth", authRoutes);
+app.use("/memories", memoryRoutes);
+app.use("/tags", tagRoutes);
 
 //start 💪
 
