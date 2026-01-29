@@ -5,6 +5,7 @@ const User = require("../models/User.model");
 const { authenticateToken } = require("../middleware/jwt.middleware");
 const validator = require("validator");
 const router = express.Router();
+const { sendWelcomeEmail } = require("../config/email");
 
 router.post("/signup", async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -19,7 +20,7 @@ router.post("/signup", async (req, res) => {
   if (!validator.isEmail(email)) {
     return res.status(400).json({
       error: true,
-      message: "Please enter a valid email address"
+      message: "Please enter a valid email address",
     });
   }
 
@@ -37,6 +38,10 @@ router.post("/signup", async (req, res) => {
     password: hashedPassword,
   });
   await user.save();
+
+  sendWelcomeEmail(user.email, user.fullName).catch((err) =>
+    console.error("Failed to send welcome email:", err),
+  );
 
   const accessToken = jwt.sign(
     { userId: user._id },
@@ -65,7 +70,7 @@ router.post("/login", async (req, res) => {
   if (!validator.isEmail(email)) {
     return res.status(400).json({
       error: true,
-      message: "Please enter a valid email address"
+      message: "Please enter a valid email address",
     });
   }
 
