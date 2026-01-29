@@ -28,10 +28,12 @@ const authRoutes = require("./routes/auth.routes");
 const memoryRoutes = require("./routes/memory.routes");
 const tagRoutes = require("./routes/tag.routes");
 
+
 // ROUTES
 app.use("/auth", authRoutes);
 app.use("/memories", memoryRoutes);
 app.use("/tags", tagRoutes);
+
 
 //start 💪
 

@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 const { authenticateToken } = require("../middleware/jwt.middleware");
+const validator = require("validator");
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -12,6 +13,14 @@ router.post("/signup", async (req, res) => {
     return res
       .status(400)
       .json({ error: true, message: "All fields are required" });
+  }
+
+  //  Validate email format
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({
+      error: true,
+      message: "Please enter a valid email address"
+    });
   }
 
   const isUser = await User.findOne({ email });
@@ -52,6 +61,14 @@ router.post("/login", async (req, res) => {
     });
   }
 
+  //  Validate email format
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({
+      error: true,
+      message: "Please enter a valid email address"
+    });
+  }
+
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(401).json({
@@ -71,7 +88,7 @@ router.post("/login", async (req, res) => {
   const accessToken = jwt.sign(
     { userId: user._id },
     process.env.ACCESS_TOKEN_SECRET,
-    { algorithm: "HS256", expiresIn: "24h" },
+    { expiresIn: "24h" },
   );
 
   return res.status(200).json({
