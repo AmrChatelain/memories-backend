@@ -34,7 +34,7 @@ const sendWelcomeEmail = async (toEmail, userName) => {
         </div>
 
         <div style="background-color: #f9fafb; padding: 25px; text-align: center; border-top: 1px solid #eee; font-size: 13px; color: #6b7280;">
-          <p style="margin-bottom: 8px;">Built with ❤️ by the Amr CHATELAIN.</p>
+          <p style="margin-bottom: 8px;">Built with ❤️ by Amr CHATELAIN.</p>
           <a href="https://github.com/AmrChatelain" style="color: #6366f1; text-decoration: underline;">View the Developer's GitHub</a>
           <p style="margin-top: 20px; font-size: 11px;">&copy; 2026 Memories App. All rights reserved.</p>
         </div>
