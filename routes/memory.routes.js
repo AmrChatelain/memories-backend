@@ -48,9 +48,10 @@ router.get("/all-memories", authenticateToken, async (req, res) => {
   const { userId } = req.user;
 
   try {
-    const memories = await Memory.find({ userId: userId }).sort({
-      isFavorite: -1,
-    });
+    const memories = await Memory.find({ userId: userId })
+      .populate("tags")
+      .sort({ isFavorite: -1 });
+      
     res.status(200).json({ memories: memories });
   } catch (err) {
     res.status(500).json({ error: true, message: err.message });

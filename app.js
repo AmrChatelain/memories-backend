@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(cors({ origin: "*" }));
 
 const PORT = process.env.PORT || 5005;
