@@ -190,7 +190,10 @@ router.put("/update-is-favorite/:id", authenticateToken, async (req, res) => {
 });
 
 //Search memory with query
-router.get("/search", authenticateToken, async (req, res) => {
+// This will be added later on the project
+{/*
+  
+  router.get("/search", authenticateToken, async (req, res) => {
   const { query } = req.query;
   const { userId } = req.user;
 
@@ -214,6 +217,8 @@ router.get("/search", authenticateToken, async (req, res) => {
     });
   }
 });
+
+*/}
 
 //Filter by date range
 router.get("/memory/filter", authenticateToken, async (req, res) => {
