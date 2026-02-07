@@ -38,7 +38,7 @@ app.use("/tags", tagRoutes);
 //start 💪
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/memories-web")
+  .connect(process.env.MONGO_URI)
   .then((conn) => {
     console.log(
       `Connected to Mongo ✅! Database name: "${conn.connections[0].name}"`,
