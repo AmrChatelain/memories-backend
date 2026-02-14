@@ -14,6 +14,10 @@ app.use(cors({ origin: "*" }));
 
 const PORT = process.env.PORT || 5005;
 
+// Testing if backend is live
+app.get("/health", (req, res) => res.send("API is running ✅"));
+
+
 // MIDDLEWARE
 app.use(logger("dev"));
 app.use(express.static("public"));
@@ -46,7 +50,7 @@ mongoose
 
     // Start server AFTER DB connection
     app.listen(PORT, () => {
-      console.log(`Server running 🚀 at http://localhost:${PORT}`);
+       console.log(`Server running 🚀 at ${process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`}`);
     });
   })
   .catch((err) => {
