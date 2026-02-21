@@ -51,7 +51,7 @@ router.get("/all-memories", authenticateToken, async (req, res) => {
     const memories = await Memory.find({ userId: userId })
       .populate("tags")
       .sort({ isFavorite: -1 });
-      
+
     res.status(200).json({ memories: memories });
   } catch (err) {
     res.status(500).json({ error: true, message: err.message });
@@ -189,37 +189,6 @@ router.put("/update-is-favorite/:id", authenticateToken, async (req, res) => {
   }
 });
 
-//Search memory with query
-// This will be added later on the project
-{/*
-  
-  router.get("/search", authenticateToken, async (req, res) => {
-  const { query } = req.query;
-  const { userId } = req.user;
-
-  if (!query) {
-    return res.status(404).json({ error: true, message: "query is required" });
-  }
-  try {
-    const searchResults = await Memory.find({
-      userId: userId,
-      $or: [
-        { title: { $regex: query, $options: "i" } },
-        { story: { $regex: query, $options: "i" } },
-        { location: { $elemMatch: { $regex: query, $options: "i" } } },
-      ],
-    }).sort({ isFavorite: -1 });
-    res.status(200).json({ memories: searchResults });
-  } catch (error) {
-    res.status(500).json({
-      error: true,
-      message: error.message,
-    });
-  }
-});
-
-*/}
-
 //Filter by date range
 router.get("/memory/filter", authenticateToken, async (req, res) => {
   const { startDate, endDate } = req.query;
@@ -231,8 +200,8 @@ router.get("/memory/filter", authenticateToken, async (req, res) => {
     // Add date range filter if provided
     if (startDate && endDate) {
       query.visitedDate = {
-        $gte: new Date(startDate),  
-        $lte: new Date(endDate)   
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
       };
     }
 
@@ -241,9 +210,8 @@ router.get("/memory/filter", authenticateToken, async (req, res) => {
 
     res.status(200).json({
       error: false,
-      memories: filteredMemories
+      memories: filteredMemories,
     });
-
   } catch (error) {
     res.status(500).json({ error: true, message: error.message });
   }
